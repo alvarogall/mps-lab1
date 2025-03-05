@@ -1,2 +1,7 @@
 # mps-lab1
-Laboratorio 1: pruebas unitarias con jUnit 5
+Lab 1: Unit Testing with JUnit 5
+
+## Autores
+
+- Pablo Gámez
+- Álvaro Gallardo

@@ -1,10 +1,5 @@
 package clubdeportivo;
 
-/**
- * @author Pablo Gámez
- * @author Álvaro Gallardo
- */
-
 import java.util.StringJoiner;
 
 public class ClubDeportivo {

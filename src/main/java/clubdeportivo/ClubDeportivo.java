@@ -49,8 +49,13 @@ public class ClubDeportivo {
 		}
 		int pos = buscar(g);
 		if (pos == -1) { // El grupo es nuevo
-			grupos[ngrupos] = g;
-			ngrupos++;
+			// Primer ERROR, incorporada la lógica de ngrupos < grupos.length y el else
+			if(ngrupos < grupos.length) {
+				grupos[ngrupos] = g;
+				ngrupos++;
+			} else {
+				throw new ClubException("ERROR: se anyade un grupo fuera del límite de grupos");
+			}
 		} else { // El grupo ya existe --> modificamos las plazas
 			grupos[pos].actualizarPlazas(g.getPlazas());
 		}
@@ -85,6 +90,10 @@ public class ClubDeportivo {
 				}
 			}
 			i++;
+		}
+		// Segundo ERROR, incorporada la logica de npersonas <= 0
+		if(npersonas <= 0) {
+			throw new ClubException("ERROR: el número de personas a matricular tiene que ser positivo.");
 		}
 	}
 

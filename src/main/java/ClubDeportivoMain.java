@@ -13,7 +13,6 @@ public class ClubDeportivoMain {
 			club.anyadirActividad(pilates);
 			System.out.println(club);			
 			System.out.println("Ingresos: " + club.ingresos());
-			
 		} catch (ClubException e) {
 			System.out.println(e.getMessage());
 		}

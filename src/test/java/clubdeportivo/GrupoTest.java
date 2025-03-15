@@ -6,16 +6,18 @@ package clubdeportivo;
  */
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class GrupoTest {
-    @DisplayName("Crear un grupo con numero de plazas y tarifa mayor que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas")
+    @DisplayName("Crear un grupo con numero de plazas y tarifa mayor que 0, matriculados mayor o igual que 0, matriculados menor que el numero de plazas, codigo y actividad no null (datos correctos)")
     @Test
-    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas() throws ClubException {
+    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNoNull_ActividadNoNull() throws ClubException {
         //Arrange
         String codigo = "476B";
         String actividad = "Calistenia";
@@ -30,9 +32,9 @@ public class GrupoTest {
         assertEquals("(476B - Calistenia - 27.3 euros - P:15 - M:12)", calistenia.toString());
     }
 
-    @DisplayName("Crear un grupo con numero de plazas menor o igual que 0 y tarifa mayor que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas")
+    @DisplayName("Crear un grupo con numero de plazas menor o igual que 0 y tarifa mayor que 0, matriculados mayor o igual que 0, matriculados menor que el numero de plazas, codigo y actividad no null")
     @Test
-    public void crearGrupo_NPlazasMenorIgualCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas() throws ClubException {
+    public void crearGrupo_NPlazasMenorIgualCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNoNull_ActividadNoNull() throws ClubException {
         //Arrange
         String codigo = "476B";
         String actividad = "Calistenia";
@@ -46,9 +48,9 @@ public class GrupoTest {
         });
     }
 
-    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa menor o igual que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas")
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa menor o igual que 0, matriculados mayor o igual que 0, matriculados menor que el numero de plazas, codigo y actividad no null")
     @Test
-    public void crearGrupo_NPlazasMayorCero_TarifaMenorIgualCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas() throws ClubException {
+    public void crearGrupo_NPlazasMayorCero_TarifaMenorIgualCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNoNull_ActividadNoNull() throws ClubException {
         //Arrange
         String codigo = "476B";
         String actividad = "Calistenia";
@@ -62,9 +64,9 @@ public class GrupoTest {
         });
     }
 
-    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados menor que 0 y matriculados menor que el numero de plazas")
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados menor que 0, matriculados menor que el numero de plazas, codigo y actividad no null")
     @Test
-    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMenorCero_MatriculadosMenorNPlazas() throws ClubException {
+    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMenorCero_MatriculadosMenorNPlazas_CodigoNoNull_ActividadNoNull() throws ClubException {
         //Arrange
         String codigo = "476B";
         String actividad = "Calistenia";
@@ -78,14 +80,46 @@ public class GrupoTest {
         });
     }
 
-    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas")
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0, matriculados mayor que el numero de plazas, codigo y actividad no null")
     @Test
-    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMayorNPlazas() throws ClubException {
+    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMayorNPlazas_CodigoNoNull_ActividadNoNull() throws ClubException {
         //Arrange
         String codigo = "476B";
         String actividad = "Calistenia";
         int nPlazas = 15;
         int matriculados = 17;
+        double tarifa = 27.3;
+
+        //Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new Grupo(codigo, actividad, nPlazas, matriculados, tarifa);
+        });
+    }
+
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0, matriculados menor que el numero de plazas, codigo null y actividad no null")
+    @Test
+    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNull_ActividadNoNull() throws ClubException {
+        //Arrange
+        String codigo = null;
+        String actividad = "Calistenia";
+        int nPlazas = 15;
+        int matriculados = 12;
+        double tarifa = 27.3;
+
+        //Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new Grupo(codigo, actividad, nPlazas, matriculados, tarifa);
+        });
+    }
+
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas, codigo no null y actividad null")
+    @Test
+    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNoNull_ActividadNull() throws ClubException {
+        //Arrange
+        String codigo = "476B";
+        String actividad = null;
+        int nPlazas = 15;
+        int matriculados = 12;
         double tarifa = 27.3;
 
         //Act, Assert
@@ -100,8 +134,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals("476B", calistenia.getCodigo());
+        //Act
+        String codigo = calistenia.getCodigo();
+
+        //Assert
+        assertEquals("476B", codigo);
     }
 
     @Test
@@ -110,8 +147,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals("Calistenia", calistenia.getActividad());
+        //Act
+        String actividad = calistenia.getActividad();
+
+        //Assert
+        assertEquals("Calistenia", actividad);
     }
 
     @Test
@@ -120,8 +160,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals(15, calistenia.getPlazas());
+        //Act
+        int nplazas = calistenia.getPlazas();
+
+        //Assert
+        assertEquals(15, nplazas);
     }
 
     @Test
@@ -130,8 +173,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals(7, calistenia.getMatriculados());
+        //Act
+        int matriculados = calistenia.getMatriculados();
+
+        //Assert
+        assertEquals(7, matriculados);
     }
 
     @Test
@@ -140,8 +186,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals(27.3, calistenia.getTarifa());
+        //Act
+        double tarifa = calistenia.getTarifa();
+
+        //Assert
+        assertEquals(27.3, tarifa);
     }
 
     @Test
@@ -150,8 +199,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals(15-7, calistenia.plazasLibres());
+        //Act
+        int plazasLibres = calistenia.plazasLibres();
+
+        //Assert
+        assertEquals(15-7, plazasLibres);
     }
 
 
@@ -182,7 +234,7 @@ public class GrupoTest {
         });
     }
     
-    @DisplayName("Actualizar las plazas de un grupo con numero de plazas mayor que 0 y  menor que matriculados")
+    @DisplayName("Actualizar las plazas de un grupo con numero de plazas mayor que 0 y menor que matriculados")
     @Test
     public void actualizarPlazas_NPlazasMayorCero_NplazasMenorMatriculados() throws ClubException {
         //Arrange
@@ -241,8 +293,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals("(476B - Calistenia - 27.3 euros - P:15 - M:7)", calistenia.toString());
+        //Act
+        String calisteniaString = calistenia.toString();
+
+        //Assert
+        assertEquals("(476B - Calistenia - 27.3 euros - P:15 - M:7)", calisteniaString);
     }
 
     @DisplayName("Comprobar que equals devuelve true para grupos iguales, mismo codigo y misma actividad")
@@ -252,8 +307,11 @@ public class GrupoTest {
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         Grupo calistenia2 = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals(calistenia1, calistenia2);
+        //Act
+        Boolean sonIguales = calistenia1.equals(calistenia2);
+
+        //Assert
+        assertTrue(sonIguales);
     }
 
     @DisplayName("Comprobar que equals devuelve true si el grupo es el mismo")
@@ -262,8 +320,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
 
-        //Act, Assert
-        assertEquals(calistenia1, calistenia1);
+        //Act
+        Boolean sonIguales = calistenia1.equals(calistenia1);
+
+        //Assert
+        assertTrue(sonIguales);
     }
 
     @DisplayName("Comprobar que equals devuelve false para grupos distintos, diferente codigo y diferente actividad")
@@ -273,8 +334,11 @@ public class GrupoTest {
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         Grupo calistenia2 = new Grupo("675C", "CrossFit", 15, 7, 27.3);
 
-        //Act, Assert
-        assertNotEquals(calistenia1, calistenia2);
+        //Act
+        Boolean sonIguales = calistenia1.equals(calistenia2);
+
+        //Assert
+        assertFalse(sonIguales);
     }
 
     @DisplayName("Comprobar que equals devuelve false para grupos distintos, mismo codigo pero diferente actividad")
@@ -284,8 +348,11 @@ public class GrupoTest {
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         Grupo calistenia2 = new Grupo("476B", "CrossFit", 15, 7, 27.3);
 
-        //Act, Assert
-        assertNotEquals(calistenia1, calistenia2);
+        //Act
+        Boolean sonIguales = calistenia1.equals(calistenia2);
+
+        //Assert
+        assertFalse(sonIguales);
     }
 
     @DisplayName("Comprobar que equals devuelve false para grupos distintos, diferente codigo pero misma actividad")
@@ -295,8 +362,11 @@ public class GrupoTest {
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         Grupo calistenia2 = new Grupo("675C", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertNotEquals(calistenia1, calistenia2);
+        //Act
+        Boolean sonIguales = calistenia1.equals(calistenia2);
+
+        //Assert
+        assertFalse(sonIguales);
     }
 
     @DisplayName("Comprobar que equals devuelve false si un objeto es null")
@@ -305,8 +375,11 @@ public class GrupoTest {
         //Arrange
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
 
-        //Act, Assert
-        assertNotEquals(calistenia1, null);
+        //Act
+        Boolean sonIguales = calistenia1.equals(null);
+
+        //Assert
+        assertFalse(sonIguales);
     }
     
     @DisplayName("Comprobar que equals devuelve false si un objeto no es grupo")
@@ -316,8 +389,11 @@ public class GrupoTest {
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         String noGrupo = "no soy un grupo";
 
-        //Act, Assert
-        assertNotEquals(calistenia1, noGrupo);
+        //Act
+        Boolean sonIguales = calistenia1.equals(noGrupo);
+
+        //Assert
+        assertFalse(sonIguales);
     }
 
 
@@ -328,18 +404,26 @@ public class GrupoTest {
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         Grupo calistenia2 = new Grupo("476B", "Calistenia", 15, 7, 27.3);
 
-        //Act, Assert
-        assertEquals(calistenia1.hashCode(), calistenia2.hashCode());
+        //Act
+        int hashCode1 = calistenia1.hashCode();
+        int hashCode2 = calistenia2.hashCode();
+
+        //Assert
+        assertEquals(hashCode1, hashCode2);
     }
 
-    @DisplayName("Comprobar que hashCode devuelve el mismo valor para grupos distintos")
+    @DisplayName("Comprobar que hashCode devuelve diferente valor para grupos distintos")
     @Test
     public void hashCode_DevuelveDiferenteValorGruposDistintos() throws ClubException {
         //Arrange
         Grupo calistenia1 = new Grupo("476B", "Calistenia", 17, 10, 23.1);
         Grupo calistenia2 = new Grupo("675C", "CrossFit", 15, 7, 27.3);
 
-        //Act, Assert
-        assertNotEquals(calistenia1.hashCode(), calistenia2.hashCode());
+        //Act
+        int hashCode1 = calistenia1.hashCode();
+        int hashCode2 = calistenia2.hashCode();
+
+        //Assert
+        assertNotEquals(hashCode1, hashCode2);
     }
 }

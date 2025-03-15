@@ -16,6 +16,9 @@ public class ClubDeportivo {
 		if (n <= 0) {
 			throw new ClubException("ERROR: el club no puede crearse con un número de grupos 0 o negativo");
 		}
+		if(nombre == null){ // ERROR: no se lanzaba excepción cuando el nombre es null
+			throw new ClubException("ERROR: el club no puede crearse con un nombre null");
+		}
 		this.nombre = nombre;
 		grupos = new Grupo[n];
 	}
@@ -32,6 +35,10 @@ public class ClubDeportivo {
 	}
 
 	public void anyadirActividad(String[] datos) throws ClubException {
+		// ERROR, incorporada lógica de control de tamaño de array de datos
+		if (datos.length<5) {
+			throw new ClubException ("ERROR: faltan datos");
+		}
 		try {
 			int plazas = Integer.parseInt(datos[2]);
 			int matriculados = Integer.parseInt(datos[3]);
@@ -49,7 +56,7 @@ public class ClubDeportivo {
 		}
 		int pos = buscar(g);
 		if (pos == -1) { // El grupo es nuevo
-			// Primer ERROR, incorporada la lógica de ngrupos < grupos.length y el else
+			// ERROR, incorporada la lógica de ngrupos < grupos.length y el else
 			if(ngrupos < grupos.length) {
 				grupos[ngrupos] = g;
 				ngrupos++;
@@ -87,11 +94,13 @@ public class ClubDeportivo {
 					npersonas -= plazasGrupo;
 				} else {
 					grupos[i].matricular(npersonas);
+					// ERROR, codigo incorporado
+					i = ngrupos;
 				}
 			}
 			i++;
 		}
-		// Segundo ERROR, incorporada la logica de npersonas <= 0
+		// ERROR, incorporada la logica de npersonas <= 0
 		if(npersonas <= 0) {
 			throw new ClubException("ERROR: el número de personas a matricular tiene que ser positivo.");
 		}

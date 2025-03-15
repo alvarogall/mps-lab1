@@ -12,6 +12,31 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ClubDeportivoTest {
+    @DisplayName("Crear un club deportivo con número de grupos predefinido y nombre null")
+    @Test
+    public void ClubDeportivo_NombreNullTamPredefinido_LanzaExcepcion() {
+        // Arrange
+        String nombre = null;
+
+        // Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre);
+        });
+    }
+
+    @DisplayName("Crear un club deportivo con número de grupos mayor que cero y nombre null")
+    @Test
+    public void ClubDeportivo_NombreNullNgruposMayorCero_LanzaExcepcion() {
+        // Arrange
+        String nombre = null;
+        int n = 20;
+
+        // Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre, n);
+        });
+    }
+    
     @DisplayName("Crear un club deportivo con número de grupos mayor que cero")
     @Test
     public void ClubDeportivo_NgruposMayorCero_ClubDeportivoCreado() throws ClubException {
@@ -110,6 +135,19 @@ public class ClubDeportivoTest {
         });
     }
 
+    @DisplayName("Anyadir una actividad no especificando suficientes datos")
+    @Test
+    public void anyadirActividad_NoSuficientesDatos_LanzaExcepcion() throws ClubException {
+        // Arrange
+        ClubDeportivo club1 = new ClubDeportivo("club1", 1);
+        String[] datos1 = {"codigo1","actividad1","a"};
+        
+        // Act, Assert
+        assertThrows(ClubException.class, () -> {
+            club1.anyadirActividad(datos1);
+        });
+    }
+
     @DisplayName("Anyadir una actividad mediante grupo que no existe y hay espacio en límite de actividades")
     @Test
     public void anyadirActividad_NoExisteGrupoYHayEspacio_ActividadCreada() throws ClubException {
@@ -174,8 +212,11 @@ public class ClubDeportivoTest {
         // Arrange
         ClubDeportivo club1 = new ClubDeportivo("club1");
         
-        // Act, Assert
-        assertEquals(0, club1.plazasLibres("actividad1"));
+        // Act
+        int plazasLibres = club1.plazasLibres("actividad1");
+
+        // Assert
+        assertEquals(0, plazasLibres);
     }
 
     @DisplayName("Obtener plazas libres de una actividad que existe")
@@ -186,8 +227,11 @@ public class ClubDeportivoTest {
         Grupo grupo1 = new Grupo("codigo1", "actividad1", 5, 3, 5.0);
         club1.anyadirActividad(grupo1); 
 
-        // Act, Assert
-        assertEquals(2, club1.plazasLibres("actividad1"));
+        // Act
+        int plazasLibres = club1.plazasLibres("actividad1");
+
+        // Assert
+        assertEquals(2, plazasLibres);
     }
 
     @DisplayName("Matricular personas en una actividad que no existe")
@@ -259,18 +303,24 @@ public class ClubDeportivoTest {
         club1.anyadirActividad(grupo1);
         club1.anyadirActividad(grupo2);
 
-        // Act, Assert
-        assertEquals(0, club1.ingresos());   
+        // Act
+        double ingresos = club1.ingresos();
+
+        // Assert
+        assertEquals(0, ingresos);   
     }
-    
+
     @DisplayName("Obtener ingresos de un club deportivo que no tiene grupos")
     @Test
     public void ingresos_NoHayGrupos_DevuelveCero() throws ClubException {
         // Arrange
         ClubDeportivo club1 = new ClubDeportivo("club1");
 
-        // Act, Assert
-        assertEquals(0, club1.ingresos());
+        // Act
+        double ingresos = club1.ingresos();
+
+        // Assert
+        assertEquals(0, ingresos);
     }
 
     @DisplayName("Obtener ingresos de un club deportivo que tiene grupos y matriculados")
@@ -283,8 +333,11 @@ public class ClubDeportivoTest {
         club1.anyadirActividad(grupo1);
         club1.anyadirActividad(grupo2);
 
-        // Act, Assert
-        assertEquals(50, club1.ingresos());  
+        // Act
+        double ingresos = club1.ingresos();
+
+        // Assert
+        assertEquals(50, ingresos);  
     }
 
     @DisplayName("Obtener el String asociado a un club deportivo sin grupos")
@@ -293,8 +346,11 @@ public class ClubDeportivoTest {
         // Arrange
         ClubDeportivo club1 = new ClubDeportivo("club1");
 
-        // Act, Assert
-        assertEquals("club1 --> [  ]", club1.toString());
+        // Act
+        String resultado = club1.toString();
+
+        // Assert
+        assertEquals("club1 --> [  ]", resultado);
     }
 
     @DisplayName("Obtener el String asociado a un club deportivo con grupos")
@@ -307,8 +363,10 @@ public class ClubDeportivoTest {
         club1.anyadirActividad(grupo1);
         club1.anyadirActividad(grupo2);
 
-        // Act, Assert
-        assertEquals("club1 --> [ (codigo1 - actividad1 - 5.0 euros - P:5 - M:5), (codigo2 - actividad2 - 5.0 euros - P:5 - M:5) ]", club1.toString());
+        // Act
+        String resultado = club1.toString();
+
+        // Assert
+        assertEquals("club1 --> [ (codigo1 - actividad1 - 5.0 euros - P:5 - M:5), (codigo2 - actividad2 - 5.0 euros - P:5 - M:5) ]", resultado);
     }
-    
 }

@@ -94,15 +94,9 @@ public class ClubDeportivo {
 					npersonas -= plazasGrupo;
 				} else {
 					grupos[i].matricular(npersonas);
-					// ERROR, codigo incorporado
-					i = ngrupos;
 				}
 			}
 			i++;
-		}
-		// ERROR, incorporada la logica de npersonas <= 0
-		if(npersonas <= 0) {
-			throw new ClubException("ERROR: el número de personas a matricular tiene que ser positivo.");
 		}
 	}
 

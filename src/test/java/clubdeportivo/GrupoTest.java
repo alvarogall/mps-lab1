@@ -96,6 +96,38 @@ public class GrupoTest {
         });
     }
 
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0, matriculados menor que el numero de plazas, codigo null y actividad no null")
+    @Test
+    public void crearGrupo_CodigoNull_LanzaExcepcion() throws ClubException {
+        // Arrange
+        String codigo = null;
+        String actividad = "Calistenia";
+        int nPlazas = 15;
+        int matriculados = 12;
+        double tarifa = 27.3;
+
+        // Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new Grupo(codigo, actividad, nPlazas, matriculados, tarifa);
+        });
+    }
+
+    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas, codigo no null y actividad null")
+    @Test
+    public void crearGrupo_ActividadNull_LanzaExcepcion() throws ClubException {
+        // Arrange
+        String codigo = "476B";
+        String actividad = null;
+        int nPlazas = 15;
+        int matriculados = 12;
+        double tarifa = 27.3;
+
+        // Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new Grupo(codigo, actividad, nPlazas, matriculados, tarifa);
+        });
+    }
+
     @Test
     @DisplayName("Obtener el codigo del grupo")
     public void getCodigo_GrupoCreado_DevuelveCodigoGrupo() throws ClubException{

@@ -262,35 +262,59 @@ public class ClubDeportivoTest {
 
     @DisplayName("Matricular personas en una actividad que existe, pero las personas a matricular es cero o negativo")
     @Test
-    public void matricular_ExisteActividadPersonasAMatricularCeroONegativo_LanzaExcepcion() throws ClubException {
+    public void matricular_ExisteActividadPersonasAMatricularCeroONegativo_NoMatricula() throws ClubException {
         // Arrange
         ClubDeportivo club1 = new ClubDeportivo("club1");
-        Grupo grupo1 = new Grupo("codigo1", "actividad1", 5, 5, 5.0);
+        Grupo grupo1 = new Grupo("codigo1", "actividad1", 5, 0, 5.0);
         club1.anyadirActividad(grupo1);
+
+        // Act
+        club1.matricular("actividad1", 0);
         
-        // Act, Assert
-        assertThrows(ClubException.class, () -> {
-            club1.matricular("actividad1", 0);
-        });
+        // Assert
+        assertEquals("club1 --> [ (codigo1 - actividad1 - 5.0 euros - P:5 - M:0) ]", club1.toString());
     }
 
-    @DisplayName("Matricular personas en una actividad que existe y tiene plazas")
+    @DisplayName("Matricular personas en una actividad que existe y sobran plazas")
     @Test
-    public void matricular_ExisteActividadTienePlazas_PersonasMatriculadas() throws ClubException {
+    public void matricular_ExisteActividadSobranPlazas_PersonasMatriculadas() throws ClubException {
         // Arrange
         ClubDeportivo club1 = new ClubDeportivo("club1");
         Grupo grupo1 = new Grupo("codigo1", "actividad1", 5, 0, 5.0);
         Grupo grupo2 = new Grupo("codigo2", "actividad2", 5, 2, 5.0);
-        Grupo grupo3 = new Grupo("codigo3", "actividad2", 10, 0, 5.0);
+        Grupo grupo3 = new Grupo("codigo3", "actividad2", 5, 0, 5.0);
+        Grupo grupo4 = new Grupo("codigo4", "actividad2", 10, 0, 5.0);
         club1.anyadirActividad(grupo1);
         club1.anyadirActividad(grupo2);
         club1.anyadirActividad(grupo3);
+        club1.anyadirActividad(grupo4);
         
         // Act
-        club1.matricular("actividad2", 8);
+        club1.matricular("actividad2", 13);
 
         // Assert
-        assertEquals("club1 --> [ (codigo1 - actividad1 - 5.0 euros - P:5 - M:0), (codigo2 - actividad2 - 5.0 euros - P:5 - M:5), (codigo3 - actividad2 - 5.0 euros - P:10 - M:5) ]", club1.toString());
+        assertEquals("club1 --> [ (codigo1 - actividad1 - 5.0 euros - P:5 - M:0), (codigo2 - actividad2 - 5.0 euros - P:5 - M:5), (codigo3 - actividad2 - 5.0 euros - P:5 - M:5), (codigo4 - actividad2 - 5.0 euros - P:10 - M:5) ]", club1.toString());
+    }
+
+    @DisplayName("Matricular personas en una actividad que existe y no sobran plazas")
+    @Test
+    public void matricular_ExisteActividadNoSobranPlazas_PersonasMatriculadas() throws ClubException {
+        // Arrange
+        ClubDeportivo club1 = new ClubDeportivo("club1");
+        Grupo grupo1 = new Grupo("codigo1", "actividad1", 5, 0, 5.0);
+        Grupo grupo2 = new Grupo("codigo2", "actividad2", 5, 2, 5.0);
+        Grupo grupo3 = new Grupo("codigo3", "actividad2", 5, 0, 5.0);
+        Grupo grupo4 = new Grupo("codigo4", "actividad2", 5, 0, 5.0);
+        club1.anyadirActividad(grupo1);
+        club1.anyadirActividad(grupo2);
+        club1.anyadirActividad(grupo3);
+        club1.anyadirActividad(grupo4);
+        
+        // Act
+        club1.matricular("actividad2", 13);
+
+        // Assert
+        assertEquals("club1 --> [ (codigo1 - actividad1 - 5.0 euros - P:5 - M:0), (codigo2 - actividad2 - 5.0 euros - P:5 - M:5), (codigo3 - actividad2 - 5.0 euros - P:5 - M:5), (codigo4 - actividad2 - 5.0 euros - P:5 - M:5) ]", club1.toString());
     }
 
     @DisplayName("Obtener ingresos de un club deportivo que tiene grupos pero no tiene matriculados")

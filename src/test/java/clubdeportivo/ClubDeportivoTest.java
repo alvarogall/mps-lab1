@@ -12,9 +12,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ClubDeportivoTest {
-    @DisplayName("Crear un club deportivo con número de grupos mayor que cero")
+    @DisplayName("Crear un club deportivo con número de grupos mayor que cero y nombre no null")
     @Test
-    public void ClubDeportivo_NgruposMayorCero_ClubDeportivoCreado() throws ClubException {
+    public void ClubDeportivo_NgruposMayorCero_NombreNoNull_ClubDeportivoCreado() throws ClubException {
         // Arrange
         String nombre = "club1";
         int n = 20;
@@ -26,9 +26,9 @@ public class ClubDeportivoTest {
         assertEquals("club1 --> [  ]", club1.toString());
     }
 
-    @DisplayName("Crear un club deportivo con número de grupos predefinido")
+    @DisplayName("Crear un club deportivo con número de grupos predefinido y nombre no null")
     @Test
-    public void ClubDeportivo_initTam_ClubDeportivoCreado() throws ClubException {
+    public void ClubDeportivo_initTam_NombreNoNull_ClubDeportivoCreado() throws ClubException {
         // Arrange
         String nombre = "club1";
 
@@ -39,9 +39,34 @@ public class ClubDeportivoTest {
         assertEquals("club1 --> [  ]", club1.toString());
     }
 
-    @DisplayName("Crear un club deportivo con número de grupos menor que cero")
+    @DisplayName("Crear un club deportivo con número de grupos predefinido y nombre null")
     @Test
-    public void ClubDeportivo_NgruposMenorCero_ClubDeportivoNoCreadoExcepcion() {
+    public void ClubDeportivo_NombreNull_ClubDeportivoNoCreadoExcepcion() throws ClubException {
+        //Arrange
+        String nombre = null;
+
+        //Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre);
+        });
+    }
+
+    @DisplayName("Crear un club deportivo con número de grupos predefinido y nombre null")
+    @Test
+    public void ClubDeportivo_NgruposMayorCero_NombreNull_ClubDeportivoNoCreadoExcepcion() throws ClubException {
+        //Arrange
+        String nombre = null;
+        int n = 20;
+
+        //Act, Assert
+        assertThrows(ClubException.class, () -> {
+            new ClubDeportivo(nombre, n);
+        });
+    }
+
+    @DisplayName("Crear un club deportivo con número de grupos menor que cero y nombre no null")
+    @Test
+    public void ClubDeportivo_NgruposMenorCero_NombreNoNull_ClubDeportivoNoCreadoExcepcion() throws ClubException {
         // Arrange
         String nombre = "club1";
         int n = -1;

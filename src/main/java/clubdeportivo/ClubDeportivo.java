@@ -16,6 +16,9 @@ public class ClubDeportivo {
 		if (n <= 0) {
 			throw new ClubException("ERROR: el club no puede crearse con un número de grupos 0 o negativo");
 		}
+		if(nombre == null){ // ERROR: no se lanzaba excepción cuando el nombre es null
+			throw new ClubException("ERROR: el club no puede crearse con un nombre null");
+		}
 		this.nombre = nombre;
 		grupos = new Grupo[n];
 	}

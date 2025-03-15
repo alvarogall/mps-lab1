@@ -1,7 +1,5 @@
 package clubdeportivo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 // poner el before each
 
 /**
@@ -9,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Álvaro Gallardo Rubio
  */
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.DisplayName;

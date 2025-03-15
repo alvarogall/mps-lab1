@@ -11,6 +11,9 @@ public class Grupo {
 		if (nplazas<=0 || matriculados<0 || tarifa <=0) {
 			throw new ClubException("ERROR: los datos numéricos no pueden ser menores o iguales que 0.");
 		}
+		if (codigo == null || actividad == null){ // ERROR: no se lanzaba excepción cuando el codigo o la actividad son null
+			throw new ClubException("ERROR: los datos textuales no pueden ser null");
+		}
 		if (matriculados>nplazas) {
 			throw new ClubException("ERROR: El número de plazas es menor que el de matriculados.");
 		}

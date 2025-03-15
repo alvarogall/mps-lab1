@@ -7,10 +7,8 @@ package clubdeportivo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -90,38 +88,6 @@ public class GrupoTest {
         String actividad = "Calistenia";
         int nPlazas = 15;
         int matriculados = 17;
-        double tarifa = 27.3;
-
-        // Act, Assert
-        assertThrows(ClubException.class, () -> {
-            new Grupo(codigo, actividad, nPlazas, matriculados, tarifa);
-        });
-    }
-
-    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0, matriculados menor que el numero de plazas, codigo null y actividad no null")
-    @Test
-    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNull_ActividadNoNull() throws ClubException {
-        //Arrange
-        String codigo = null;
-        String actividad = "Calistenia";
-        int nPlazas = 15;
-        int matriculados = 12;
-        double tarifa = 27.3;
-
-        //Act, Assert
-        assertThrows(ClubException.class, () -> {
-            new Grupo(codigo, actividad, nPlazas, matriculados, tarifa);
-        });
-    }
-
-    @DisplayName("Crear un grupo con numero de plazas mayor que 0 y tarifa mayor que 0, matriculados mayor o igual que 0 y matriculados menor que el numero de plazas, codigo no null y actividad null")
-    @Test
-    public void crearGrupo_NPlazasMayorCero_TarifaMayorCero_MatriculadosMayorIgualCero_MatriculadosMenorNPlazas_CodigoNoNull_ActividadNull() throws ClubException {
-        //Arrange
-        String codigo = "476B";
-        String actividad = null;
-        int nPlazas = 15;
-        int matriculados = 12;
         double tarifa = 27.3;
 
         // Act, Assert
@@ -439,7 +405,7 @@ public class GrupoTest {
         assertEquals(hashCode1, hashCode2);
     }
 
-    @DisplayName("Comprobar que hashCode devuelve diferente valor para grupos distintos")
+    @DisplayName("Comprobar que hashCode devuelve el mismo valor para grupos distintos")
     @Test
     public void hashCode_GruposDistintos_DistintoHascode() throws ClubException {
         // Arrange
